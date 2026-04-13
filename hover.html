@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="lt">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mygtuko animacija</title>
+    <style>
+      /* Čia rašyk CSS kodą */
+      .animuotas-mygtukas:hover {
+        background-color: red;
+        transition: 1s;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: medium;
+      }
+
+      .su-efektu {
+        position: relative;
+        padding: 20px 20px 20px 35px;
+        background: white;
+      }
+
+      .su-efektu::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 15px;
+        height: 100%;
+        background: red;
+      }
+
+      .su-efektu::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border: 2px solid red;
+        transform: scale(0.8);
+        opacity: 0;
+        transition: all 0.3s ease;
+        pointer-events: none;
+        width: 9em;
+      }
+
+      .su-efektu:hover::after {
+        transform: scale(1);
+        opacity: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <p>
+      ✅ Uždavinys 1: Mygtuko „hover“ animacija su pseudo-selektoriumi Tikslas: Sukurk animaciją, kuri keičia mygtuko
+      foną ir šriftą, kai pelės žymeklis užveda virš jo. Naudok :hover ir CSS tranziciją.
+    </p>
+
+    <button class="animuotas-mygtukas">Spausk mane</button>
+
+    <p>
+      ✅ Uždavinys 2: Animacija su :before pseudo-elementu Tikslas: Naudojant :before, sukurk dekoratyvinį elementą
+      (pvz., juostelę) prieš antraštę, kuris pasirodo su animacija.
+    </p>
+    <h2 class="su-efektu">Svarbi antraštė</h2>
+  </body>
+</html>
