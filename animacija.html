@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="lt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Policijos švyturėliai</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(circle at center, #182033 0%, #0b1020 55%, #05070d 100%);
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+      }
+
+      .scene {
+        text-align: center;
+        color: white;
+      }
+
+      h1 {
+        margin-bottom: 30px;
+        font-size: 40px;
+        letter-spacing: 1px;
+      }
+
+      .siren-wrap {
+        position: relative;
+        width: 420px;
+        height: 220px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .glow-left,
+      .glow-right {
+        position: absolute;
+        top: 50%;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        transform: translateY(-50%);
+        filter: blur(40px);
+        opacity: 0.12;
+        pointer-events: none;
+      }
+
+      .glow-left {
+        left: 30px;
+        background: rgba(255, 0, 0, 0.95);
+        animation: redGlow 1s infinite;
+      }
+
+      .glow-right {
+        right: 30px;
+        background: rgba(0, 120, 255, 0.95);
+        animation: blueGlow 1s infinite;
+      }
+
+      .siren-bar {
+        position: relative;
+        width: 320px;
+        height: 90px;
+        border-radius: 20px;
+        background: linear-gradient(180deg, #1d2437, #0c1019);
+        display: flex;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow:
+          0 20px 40px rgba(0, 0, 0, 0.45),
+          inset 0 2px 4px rgba(255, 255, 255, 0.08),
+          inset 0 -4px 8px rgba(0, 0, 0, 0.35);
+      }
+
+      .light {
+        position: relative;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      .divider {
+        width: 6px;
+        background: linear-gradient(180deg, #2f374f, #0f1420);
+        box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.05);
+        z-index: 2;
+      }
+
+      .light.red {
+        background: linear-gradient(180deg, rgba(90, 0, 0, 0.35), rgba(30, 0, 0, 0.25));
+      }
+
+      .light.blue {
+        background: linear-gradient(180deg, rgba(0, 40, 90, 0.35), rgba(0, 15, 40, 0.25));
+      }
+
+      .flash {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        filter: blur(8px);
+        transform: scale(1.15);
+      }
+
+      .red .flash {
+        background: radial-gradient(
+          circle at center,
+          rgba(255, 50, 50, 1) 0%,
+          rgba(255, 0, 0, 0.85) 35%,
+          rgba(255, 0, 0, 0.08) 65%,
+          transparent 80%
+        );
+        animation: redFlash 1s infinite;
+      }
+
+      .blue .flash {
+        background: radial-gradient(
+          circle at center,
+          rgba(70, 160, 255, 1) 0%,
+          rgba(0, 110, 255, 0.85) 35%,
+          rgba(0, 110, 255, 0.08) 65%,
+          transparent 80%
+        );
+        animation: blueFlash 1s infinite;
+      }
+
+      .shine {
+        position: absolute;
+        top: 10px;
+        left: 12px;
+        right: 12px;
+        height: 12px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.03));
+        z-index: 3;
+      }
+
+      .base {
+        position: absolute;
+        bottom: 45px;
+        width: 220px;
+        height: 12px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.35);
+        filter: blur(6px);
+      }
+
+      .label {
+        margin-top: 24px;
+        color: #d7deee;
+        font-size: 18px;
+      }
+
+      .code {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 10px 14px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.06);
+        color: #9ec5ff;
+        font-family: monospace;
+        font-size: 14px;
+      }
+
+      @keyframes redFlash {
+        0%,
+        18%,
+        100% {
+          opacity: 0;
+        }
+        4%,
+        12% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes blueFlash {
+        0%,
+        48%,
+        100% {
+          opacity: 0;
+        }
+        26%,
+        42% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes redGlow {
+        0%,
+        18%,
+        100% {
+          opacity: 0.08;
+          transform: translateY(-50%) scale(0.92);
+        }
+        4%,
+        12% {
+          opacity: 0.32;
+          transform: translateY(-50%) scale(1.08);
+        }
+      }
+
+      @keyframes blueGlow {
+        0%,
+        48%,
+        100% {
+          opacity: 0.08;
+          transform: translateY(-50%) scale(0.92);
+        }
+        26%,
+        42% {
+          opacity: 0.32;
+          transform: translateY(-50%) scale(1.08);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scene">
+      <h1>Policijos švyturėliai</h1>
+
+      <div class="siren-wrap">
+        <div class="glow-left"></div>
+        <div class="glow-right"></div>
+
+        <div class="siren-bar">
+          <div class="shine"></div>
+
+          <div class="light red">
+            <div class="flash"></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="light blue">
+            <div class="flash"></div>
+          </div>
+        </div>
+
+        <div class="base"></div>
+      </div>
+
+      <div class="label">CSS animacija su <b>@keyframes</b></div>
+      <div class="code">redFlash • blueFlash • redGlow • blueGlow</div>
+    </div>
+  </body>
+</html>
